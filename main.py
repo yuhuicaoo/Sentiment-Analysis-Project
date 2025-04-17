@@ -45,16 +45,8 @@ if __name__ == "__main__":
     train_dataloader = get_data_loader(train_encodings, train_ds['label'], batch_size=8, shuffle=True)
     val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=8, shuffle=False)
 
-    # for i, data in enumerate(train_dataloader):
-    #     if i > 5:
-    #         break
-    #     print(data)
-    #     print(data['attention_mask'].shape)
-    #     print(data['input_ids'].shape)
-    #     print(data['label'].shape)
-
     model = SentimentModel(vocab_size=tokeniser.vocab_size, num_classes=3).to(config.device)
     loss_fn = nn.CrossEntropyLoss()
-    optimiser = torch.optim.Adam(model.parameters(), lr = config.learning_rate)
+    optimiser = torch.optim.Adam(model.parameters(), lr = config.learning_rate, momentum=0.9, weight_decay=1e-4)
 
-    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=5)
+    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10)
