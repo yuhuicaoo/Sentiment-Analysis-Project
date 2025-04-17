@@ -5,7 +5,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 
 # Dynamically find the parent directory of the current file
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', config)))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config.py')))
 import config
 
 
@@ -13,7 +13,7 @@ class Head(nn.Module):
     """Singular head for self-attention"""
 
     def __init__(self, head_size):
-        super.__init__()
+        super().__init__()
 
         self.key = nn.Linear(config.num_embd, head_size, bias=False)
         self.query = nn.Linear(config.num_embd, head_size, bias=False)
@@ -45,7 +45,7 @@ class Head(nn.Module):
         weights = self.dropout(weights)
 
         # weighted aggregation on the values, v
-        v = self.values(x)
+        v = self.value(x)
         # (B,T,T) @ (B,T,head_size) -> (B,T,head_size)
         out = weights @ v
         return out
@@ -57,7 +57,7 @@ class MultiHeadAttention(nn.Module):
     def __init__(self, num_heads, head_size):
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
-        self.projection = nn.linear(num_heads * head_size , config.num_embd)
+        self.projection = nn.Linear(num_heads * head_size , config.num_embd)
         # dropout layer for regularisation
         self.dropout = nn.Dropout(config.dropout) 
 
@@ -109,4 +109,5 @@ class Block(nn.Module):
         # apply layer normalisation before the transformations (pre-norm formulation)
         x = x + self.self_attention(self.layer_norm1(x), attention_mask=attention_mask)
         x = x + self.feedforward(self.layer_norm2(x))
+        return x
     

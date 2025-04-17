@@ -11,11 +11,6 @@ def load_data(data, stop_words):
     val_ds = data['validation'].to_pandas().dropna()
     test_ds = data['test'].to_pandas().dropna()
 
-    # change sentiment labels from 0 to 2 to -1 to 1
-    train_ds["label"] = train_ds["label"] - 1
-    test_ds['label'] = test_ds['label'] - 1
-    val_ds['label'] = val_ds['label'] - 1
-
     # preprocess text for each dataset
     train_ds["text"] = train_ds["text"].apply(lambda text: preprocess_text(text, stop_words))
     val_ds['text'] = val_ds['text'].apply(lambda text: preprocess_text(text, stop_words))
