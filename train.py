@@ -52,13 +52,13 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
         avg_vloss = running_loss / len(val_loader)
         print(f'LOSS train {avg_loss:.4f} validation {avg_vloss:.4f}')
 
-        # save model
-        model_dir = 'models'
-        if not os.path.exists(model_dir):
-            os.makedirs(model_dir)
-        
-        models_count = len(os.listdir(model_dir))
+    # save model
+    model_dir = 'models'
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir)
+    
+    models_count = len(os.listdir(model_dir))
 
-        model_name = os.path.join(model_dir, f'model{models_count + 1}.pth')
-        torch.save(model.state_dict(), model_name)
+    model_name = os.path.join(model_dir, f'model{models_count + 1}.pth')
+    torch.save(model.state_dict(), model_name)
                 
