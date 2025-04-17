@@ -49,7 +49,7 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
                 vloss = loss_fn(vout, vlabels)
                 running_loss += vloss.item()
         
-        avg_vloss = running_loss / len(train_loader)
+        avg_vloss = running_loss / len(val_loader)
         print(f'LOSS train {avg_loss:.4f} validation {avg_vloss:.4f}')
 
         # save model
