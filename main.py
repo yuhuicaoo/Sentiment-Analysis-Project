@@ -57,7 +57,7 @@ def main():
 
     model = SentimentModel(vocab_size=tokeniser.vocab_size, num_classes=3).to(config.device)
     loss_fn = nn.CrossEntropyLoss()
-    optimiser = torch.optim.Adam(model.parameters(), lr = config.learning_rate, weight_decay=1e-4)
+    optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
     train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10)
 
