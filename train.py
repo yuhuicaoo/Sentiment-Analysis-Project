@@ -54,6 +54,7 @@ def train_one_epoch(train_loader, optimiser, model, loss_fn, device):
 def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epochs=5, patience=1):
     early_stopper = EarlyStopper(patience=patience, delta=1e-2)
     
+    print(f"Model Training Start")
     for epoch in range(epochs):
         model.train()
         avg_loss = train_one_epoch(train_loader, optimiser, model, loss_fn, device)
@@ -79,7 +80,10 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
         if early_stopper(avg_loss):
             print(f"Early stopping triggered at Epoch {epoch + 1}")
             break
+    
+    print(f"Model Training Finished")
 
+    print(f"Model Saving")
     # save model
     model_dir = 'models'
     if not os.path.exists(model_dir):
@@ -89,4 +93,5 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
 
     model_name = os.path.join(model_dir, f'model{models_count + 1}.pth')
     torch.save(model.state_dict(), model_name)
+    print(f"Model Saved")
                 
