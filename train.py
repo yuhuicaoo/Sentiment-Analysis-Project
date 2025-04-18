@@ -2,6 +2,30 @@ import torch
 import torch.nn as nn
 import os
 
+class EarlyStopper():
+    def __init__(self, patience=1, delta=0):
+        self.patience = patience
+        self.delta = delta
+        self.counter = 0
+        self.min_val_loss = float('inf')
+        self.early_stop = False
+
+    def __call__(self, val_loss):
+        # improvement
+        if val_loss < self.min_val_loss:
+            self.min_val_loss = val_loss
+            # reset counter if improvement
+            self.counter = 0
+        # validation loss gets worse
+        elif val_loss > (self.min_val_loss + self.delta):
+            self.counter += 1
+            if self.counter >= self.patience:
+                # early stopping if patience exceeded
+                self.early_stop = True
+
+        return self.early_stop
+        
+
 def train_one_epoch(train_loader, optimiser, model, loss_fn, device):
     running_loss = 0
 
@@ -27,13 +51,12 @@ def train_one_epoch(train_loader, optimiser, model, loss_fn, device):
     avg_loss = running_loss / len(train_loader)
     return avg_loss
 
-def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epochs=5):
+def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epochs=5, patience=1):
+    early_stopper = EarlyStopper(patience=patience, delta=1e-2)
+    
     for epoch in range(epochs):
-        print('EPOCH {}:'.format(epoch + 1))
-
         model.train()
         avg_loss = train_one_epoch(train_loader, optimiser, model, loss_fn, device)
-
 
         # set model to evaluation mode
         model.eval()
@@ -50,7 +73,12 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
                 running_loss += vloss.item()
         
         avg_vloss = running_loss / len(val_loader)
-        print(f'LOSS train {avg_loss:.4f} validation {avg_vloss:.4f}')
+        print(f'EPOCH {epoch + 1} | LOSS train {avg_loss:.4f} validation {avg_vloss:.4f}')
+
+        # check for early stopping
+        if early_stopper(avg_loss):
+            print(f"Early stopping triggered at Epoch {epoch + 1}")
+            break
 
     # save model
     model_dir = 'models'
