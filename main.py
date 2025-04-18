@@ -19,6 +19,17 @@ def main():
     nlp = spacy.load("en_core_web_sm")
     spacy_stopwords = nlp.Defaults.stop_words
 
+    # remove negation words from stop_words (might help with negative sentiment)
+    negation_words = {
+    'not', 'no', 'never', 'none', 'nobody', 'nothing', 'nowhere', 
+    'neither', 'nor', 'cannot', 'won\'t', 'isn\'t', 'aren\'t', 'wasn\'t', 
+    'weren\'t', 'don\'t', 'doesn\'t', 'didn\'t', 'hasn\'t', 'haven\'t', 
+    'hadn\'t', 'can\'t', 'couldn\'t', 'shouldn\'t', 'wouldn\'t', 'mightn\'t', 
+    'mustn\'t', 'isn\'t', 'ain\'t'
+    }
+
+    stop_words = spacy_stopwords - negation_words
+
     train_ds, val_ds, test_ds = load_data(ds, spacy_stopwords)
 
     # get max length for tokeniser input.
