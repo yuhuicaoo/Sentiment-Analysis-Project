@@ -59,7 +59,7 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
-    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=5, patience=3)
+    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10, patience=2)
 
 if __name__ == "__main__":
     main()

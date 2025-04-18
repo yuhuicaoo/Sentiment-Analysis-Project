@@ -14,6 +14,7 @@ class EarlyStopper():
         # improvement
         if val_loss < self.min_val_loss:
             self.min_val_loss = val_loss
+            print(self.min_val_loss)
             # reset counter if improvement
             self.counter = 0
         # validation loss gets worse
