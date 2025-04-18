@@ -30,7 +30,7 @@ def main():
 
     stop_words = spacy_stopwords - negation_words
 
-    train_ds, val_ds, test_ds = load_data(ds, spacy_stopwords)
+    train_ds, val_ds, test_ds = load_data(ds, stop_words)
 
     # get max length for tokeniser input.
     max_len = get_max_len(train_ds, tokeniser)
