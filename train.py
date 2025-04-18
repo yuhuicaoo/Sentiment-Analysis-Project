@@ -77,9 +77,9 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
         avg_vloss = running_loss / len(val_loader)
         print(f'EPOCH {epoch + 1} | LOSS train {avg_loss:.4f} validation {avg_vloss:.4f}')
 
-        print(early_stopper(avg_loss))
+        print(early_stopper(avg_vloss))
         # check for early stopping
-        if early_stopper(avg_loss):
+        if early_stopper(avg_vloss):
             print(f"Early stopping triggered at Epoch {epoch + 1}")
             break
     
