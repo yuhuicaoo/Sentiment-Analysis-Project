@@ -8,8 +8,7 @@ import torch.nn as nn
 import config
 from model.sentiment_model import SentimentModel
 
-
-if __name__ == "__main__":
+def main():
     # load sentiment analysis dataset.
     ds = load_dataset("Sp1786/multiclass-sentiment-analysis-dataset")
 
@@ -42,11 +41,14 @@ if __name__ == "__main__":
     )
 
     # Get dataloader
-    train_dataloader = get_data_loader(train_encodings, train_ds['label'], batch_size=8, shuffle=True)
-    val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=8, shuffle=False)
+    train_dataloader = get_data_loader(train_encodings, train_ds['label'], batch_size=config.batch_size, shuffle=True)
+    val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=config.batch_size, shuffle=False)
 
     model = SentimentModel(vocab_size=tokeniser.vocab_size, num_classes=3).to(config.device)
     loss_fn = nn.CrossEntropyLoss()
     optimiser = torch.optim.Adam(model.parameters(), lr = config.learning_rate, weight_decay=1e-4)
 
     train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10)
+
+if __name__ == "__main__":
+    main()
