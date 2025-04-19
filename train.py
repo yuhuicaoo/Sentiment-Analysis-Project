@@ -96,4 +96,23 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
     model_name = os.path.join(model_dir, f'model{models_count + 1}.pth')
     torch.save(model.state_dict(), model_name)
     print(f"Model Saved")
+
+def evaluate_model(model, test_loader, device):
+    model.eval()
+    correct, total = 0, 0
+
+    with torch.no_grad():
+        for data in test_loader:
+            inputs, atn_mask, labels = inputs['input_ids'], atn_mask['attention_mask'], labels['label']
+            inputs, atn_mask, labels = inputs.to(device), atn_mask.to(device), labels.to(device)
+
+            logits = model(inputs, atn_mask)
+            probs = torch.nn.functional.softmax(logits, dim=-1)
+            _, preds = torch.max(probs, 1)
+            total += labels.size(0)
+            correct += (preds == labels).sum().item()
+    
+    accuracy = 100 * correct / total
+    return accuracy
+
                 
