@@ -5,7 +5,7 @@ from numpy import percentile
 from torch.utils.data import DataLoader 
 
 
-def load_data(data, stop_words):
+def load_data(data):
     """Add docstring"""
     train_ds = data['train'].to_pandas().dropna()
     val_ds = data['validation'].to_pandas().dropna()
@@ -17,12 +17,12 @@ def load_data(data, stop_words):
     val_ds['label'] = val_ds['label'] - 1
 
     # preprocess text for each dataset
-    train_ds["text"] = train_ds["text"].apply(lambda text: preprocess_text(text, stop_words))
-    val_ds['text'] = val_ds['text'].apply(lambda text: preprocess_text(text, stop_words))
-    test_ds['text'] = test_ds['text'].apply(lambda text: preprocess_text(text, stop_words))
+    train_ds["text"] = train_ds["text"].apply(lambda text: preprocess_text(text))
+    val_ds['text'] = val_ds['text'].apply(lambda text: preprocess_text(text))
+    test_ds['text'] = test_ds['text'].apply(lambda text: preprocess_text(text))
     return train_ds, val_ds , test_ds 
 
-def preprocess_text(text, stop_words):
+def preprocess_text(text):
     """
     Add doctstring
     """
@@ -36,9 +36,7 @@ def preprocess_text(text, stop_words):
     text = re.sub(url_pattern, "", text)
     # lowercase text
     text = str(text).lower()
-    # remove stop words
-    text = [word for word in text.split() if word not in stop_words]
-    return " ".join(text)
+    return text
 
 def get_max_len(dataset, tokeniser):
     """

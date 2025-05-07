@@ -14,10 +14,10 @@ if __name__ == "__main__":
     tokeniser = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
     # intialise stop_words from spacy
-    nlp = spacy.load("en_core_web_sm")
-    spacy_stopwords = nlp.Defaults.stop_words
+    # nlp = spacy.load("en_core_web_sm")
+    # spacy_stopwords = nlp.Defaults.stop_words
 
-    train_ds, val_ds, test_ds = load_data(ds, spacy_stopwords)
+    train_ds, val_ds, test_ds = load_data(ds)
 
     # get max length for tokeniser input.
     max_len = get_max_len(train_ds, tokeniser)
