@@ -17,8 +17,6 @@ def main():
     # Get datasets
     train_ds, val_ds, test_ds = load_data(ds)
 
-    print(train_ds['text'].tolist())
-
     # get max length for tokeniser input.
     max_len = get_max_len(train_ds, tokeniser)
 
@@ -55,7 +53,7 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
-    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10, patience=3)
+    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=5, patience=2)
     accuracy = evaluate_model(model, test_dataloader, config.device)
 
     print(f"Model Evaluation Accuracy: {accuracy:.4f}")
