@@ -33,8 +33,11 @@ class SentimentModel(nn.Module):
         x = self.layer_norm(x)  # (B,T,C)
 
         # CLS token pooling
-        cls_token_output = x[:, 0, :] # (B , C)
+        # cls_token_output = x[:, 0, :] # (B , C)
 
-        logits = self.classifier(cls_token_output) # (B, num_classes)
+        # mean pooling
+        x_mean_pooled = x.mean(dim=1)
+
+        logits = self.classifier(x_mean_pooled) # (B, num_classes)
         return logits
 
