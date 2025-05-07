@@ -38,6 +38,7 @@ def train_one_epoch(train_loader, optimiser, model, loss_fn, device):
 
         # get predictions for batch
         logits = model(inputs, atn_mask)
+        print(logits)
 
         # compute loss and gradients
         loss = loss_fn(logits, labels)
