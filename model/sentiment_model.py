@@ -34,7 +34,6 @@ class SentimentModel(nn.Module):
 
         # CLS token pooling
         cls_token_output = x[:, 0, :] # (B , C)
-        print(cls_token_output)
 
         logits = self.classifier(cls_token_output) # (B, num_classes)
         return logits
