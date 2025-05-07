@@ -17,6 +17,8 @@ def main():
     # Get datasets
     train_ds, val_ds, test_ds = load_data(ds)
 
+    print(train_ds['text'].tolist())
+
     # get max length for tokeniser input.
     max_len = get_max_len(train_ds, tokeniser)
 

@@ -98,7 +98,6 @@ def train_model(train_loader, val_loader, optimiser, model, loss_fn, device, epo
 def evaluate_model(model, test_loader, device):
     model.eval()
     correct, total = 0, 0
-    all_preds, all_labels = [],[]
 
     with torch.no_grad():
         for data in test_loader:
