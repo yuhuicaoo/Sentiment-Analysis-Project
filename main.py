@@ -54,7 +54,9 @@ def main():
     optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
     train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10, patience=3)
-    evaluate_model(model, test_dataloader, config.device)
+    accuracy = evaluate_model(model, test_dataloader, config.device)
+
+    print(f"Model Evaluation Accuracy: {accuracy:.4f}")
 
 if __name__ == "__main__":
     main()
