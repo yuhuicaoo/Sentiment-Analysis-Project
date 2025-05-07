@@ -18,7 +18,7 @@ def main():
     train_ds, val_ds, test_ds = load_data(ds)
 
     # get max length for tokeniser input.
-    max_len = 128
+    max_len = get_max_len(train_ds, tokeniser)
 
     train_encodings = tokeniser(
         train_ds["text"].tolist(),
