@@ -19,7 +19,12 @@ class SentimentModel(nn.Module):
         self.blocks = nn.ModuleList([Block(config.num_embd, config.num_heads) for _ in range(config.num_layers)])
         self.layer_norm = nn.LayerNorm(config.num_embd)
         # project down to the number of classes.
-        self.classifier = nn.Linear(config.num_embd, num_classes)
+        self.classifier = nn.Sequential(
+            nn.Linear(config.num_embd, config.num_embd),
+            nn.Tanh(),
+            nn.Dropout(config.dropout),
+            nn.Linear(config.num_embd, num_classes)
+        )
 
     def forward(self, idx, attention_mask=None):
         B,T = idx.shape
