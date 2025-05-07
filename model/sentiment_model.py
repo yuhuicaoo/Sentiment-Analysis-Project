@@ -32,9 +32,9 @@ class SentimentModel(nn.Module):
 
         x = self.layer_norm(x)  # (B,T,C)
 
-        # Max pooling across time , T dimension
-        x = x.max(dim=1).values # (B,C)
+        # CLS token pooling
+        cls_token_output = x[:, 0, :] # (B , C)
 
-        logits = self.classifier(x)
+        logits = self.classifier(x) # (B, num_classes)
         return logits
 

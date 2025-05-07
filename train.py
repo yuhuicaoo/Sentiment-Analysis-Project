@@ -101,7 +101,7 @@ def evaluate_model(model, test_loader, device):
 
     with torch.no_grad():
         for data in test_loader:
-            inputs, atn_mask, labels = inputs['input_ids'], atn_mask['attention_mask'], labels['label']
+            inputs, atn_mask, labels = data['input_ids'], data['attention_mask'], data['label']
             inputs, atn_mask, labels = inputs.to(device), atn_mask.to(device), labels.to(device)
 
             logits = model(inputs, atn_mask)
