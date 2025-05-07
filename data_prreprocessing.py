@@ -7,24 +7,25 @@ from torch.utils.data import DataLoader
 
 def load_data(data):
     """Add docstring"""
-    train_ds = data['train'].to_pandas().dropna()
-    val_ds = data['validation'].to_pandas().dropna()
-    test_ds = data['test'].to_pandas().dropna()
+    train_ds = data['train'].to_pandas().dropna().drop(['id', 'sentiment'], axis=1)
+    val_ds = data['validation'].to_pandas().dropna().drop(['id', 'sentiment'], axis=1)
+    test_ds = data['test'].to_pandas().dropna().drop(['id', 'sentiment'], axis=1)
 
     # preprocess text for each dataset
     train_ds["text"] = train_ds["text"].apply(lambda text: preprocess_text(text))
     val_ds['text'] = val_ds['text'].apply(lambda text: preprocess_text(text))
     test_ds['text'] = test_ds['text'].apply(lambda text: preprocess_text(text))
+
     return train_ds, val_ds , test_ds 
 
 def preprocess_text(text):
     """
     Add doctstring
     """
+    # Didnt remove punctuation or stopwords as i am using a transformer-based architecture.
+
     # intialise url pattern for regex
     url_pattern = re.compile(r"https?://\S+")
-    # remove punctuation from text
-    text = re.sub(r"[^\w\s]", "", text)
     # remove numbers from text
     text = re.sub(r"\d+", "", text)
     # remove urls / links

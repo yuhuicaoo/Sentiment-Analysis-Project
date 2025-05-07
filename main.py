@@ -1,6 +1,5 @@
 from transformers import AutoTokenizer
 from datasets import load_dataset
-import spacy
 from data_prreprocessing import load_data, get_max_len, get_data_loader
 from train import train_model
 import torch
@@ -12,13 +11,10 @@ def main():
     # load sentiment analysis dataset.
     ds = load_dataset("Sp1786/multiclass-sentiment-analysis-dataset")
 
-    # intialise tokeniser.
+    # intialise tokeniser and data augmenter.
     tokeniser = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
-    # intialise stop_words from spacy
-    # nlp = spacy.load("en_core_web_sm")
-    # spacy_stopwords = nlp.Defaults.stop_words
-
+    # Get datasets
     train_ds, val_ds, test_ds = load_data(ds)
 
     # get max length for tokeniser input.
@@ -40,7 +36,7 @@ def main():
         return_tensors="pt",
     )
 
-    # Get dataloader
+    # Get dataloaders
     train_dataloader = get_data_loader(train_encodings, train_ds['label'], batch_size=config.batch_size, shuffle=True)
     val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=config.batch_size, shuffle=False)
 
@@ -48,7 +44,7 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
-    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10, patience=2)
+    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=10, patience=3)
 
 if __name__ == "__main__":
     main()
