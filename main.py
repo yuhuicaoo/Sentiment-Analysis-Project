@@ -58,8 +58,5 @@ def main():
 
     print(f"Model Evaluation Accuracy: {accuracy:.4f}")
 
-    logistic_regression_accuracy = train_logistic_regression_tfidf(train_ds["text"], train_ds["label"], test_ds["text"], test_ds["label"])
-    print(f"Logistic Regression Accuracy: {logistic_regression_accuracy:.4f}")
-
 if __name__ == "__main__":
     main()

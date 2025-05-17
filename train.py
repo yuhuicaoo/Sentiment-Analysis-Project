@@ -120,14 +120,3 @@ def evaluate_model(model, test_loader, device):
 
                 
 
-def train_logistic_regression_tfidf(train_texts, train_labels, test_texts, test_labels):
-    vectorizer = TfidfVectorizer(max_features=5000)
-    X_train = vectorizer.fit_transform(train_texts)
-    X_test = vectorizer.transform(test_texts)
-
-    clf = LogisticRegression(max_iter=1000)
-    clf.fit(X_train, train_labels)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(test_labels, y_pred)
-    return accuracy
-
