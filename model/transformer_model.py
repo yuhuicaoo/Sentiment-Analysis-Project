@@ -31,7 +31,7 @@ class Head(nn.Module):
 
         # compute attention scores ('affinities' between tokens) using 'scaled attention'
         # (B, T, head_size) @ (B, head_size, T) -> (B,T,T) | Note: head_size == attention_dimension
-        weights = q @ torch.transpose(k, dim0=1, dim1=2) * k.shape[-1]**-0.5
+        weights = q @ torch.transpose(k, dim0=-2, dim1=-1) * k.shape[-1]**-0.5
 
         if attention_mask is not None:
             # mask: (B,T) -> (B, 1, T)

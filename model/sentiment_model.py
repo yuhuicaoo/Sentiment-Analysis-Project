@@ -25,7 +25,15 @@ class SentimentModel(nn.Module):
         B,T = idx.shape
 
         token_embd = self.token_embedding_table(idx) # (B,T,C)
-        pos_embd = self.position_embedding_table(torch.arange(T, device=config.device))  # (T,C)
+
+        # positional embeddings
+        if attention_mask is not None:
+            pos_ids = attention_mask.cumsum(dim=1) - 1 
+            pos_ids = pos_ids.clamp(min=0)
+        else:
+            pos_ids = torch.arange(T, device=config.device)
+        pos_embd = self.position_embedding_table(pos_ids)  # (T,C)
+
         x = token_embd + pos_embd # (B, T, C)
         for block in self.blocks:
             x = block(x, attention_mask)  # (B,T,C)
