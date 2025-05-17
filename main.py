@@ -46,24 +46,20 @@ def main():
 
     # Get dataloaders
     train_dataloader = get_data_loader(train_encodings, train_ds['label'], batch_size=config.batch_size, shuffle=True)
-    # val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=config.batch_size, shuffle=False)
-    # test_dataloader = get_data_loader(test_encodings, test_ds['label'], batch_size=config.batch_size, shuffle=False)
-    out = next(iter(train_dataloader))
-    print(max_len)
-    print(out['attention_mask'])
-    print(out['attention_mask'].shape)
+    val_dataloader = get_data_loader(val_encodings, val_ds['label'], batch_size=config.batch_size, shuffle=False)
+    test_dataloader = get_data_loader(test_encodings, test_ds['label'], batch_size=config.batch_size, shuffle=False)
 
-    # model = SentimentModel(vocab_size=tokeniser.vocab_size, num_classes=3).to(config.device)
-    # loss_fn = nn.CrossEntropyLoss()
-    # optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
+    model = SentimentModel(vocab_size=tokeniser.vocab_size, num_classes=3).to(config.device)
+    loss_fn = nn.CrossEntropyLoss()
+    optimiser = torch.optim.AdamW(model.parameters(), lr = config.learning_rate, weight_decay=1e-2)
 
-    # train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=5, patience=2)
-    # accuracy = evaluate_model(model, test_dataloader, config.device)
+    train_model(train_dataloader, val_dataloader, optimiser, model, loss_fn, config.device, epochs=5, patience=2)
+    accuracy = evaluate_model(model, test_dataloader, config.device)
 
-    # print(f"Model Evaluation Accuracy: {accuracy:.4f}")
+    print(f"Model Evaluation Accuracy: {accuracy:.4f}")
 
-    # logistic_regression_accuracy = train_logistic_regression_tfidf(train_ds["text"], train_ds["label"], test_ds["text"], test_ds["label"])
-    # print(f"Logistic Regression Accuracy: {logistic_regression_accuracy:.4f}")
+    logistic_regression_accuracy = train_logistic_regression_tfidf(train_ds["text"], train_ds["label"], test_ds["text"], test_ds["label"])
+    print(f"Logistic Regression Accuracy: {logistic_regression_accuracy:.4f}")
 
 if __name__ == "__main__":
     main()
