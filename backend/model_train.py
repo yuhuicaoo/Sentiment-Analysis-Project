@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer
 from datasets import load_dataset
-from data_prreprocessing import load_data, get_max_len, get_data_loader
+from data_preprocessing import load_data, get_max_len, get_data_loader
 from train import train_model, evaluate_model, train_logistic_regression_tfidf
 import torch
 import torch.nn as nn
