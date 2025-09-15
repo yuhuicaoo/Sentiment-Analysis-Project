@@ -26,7 +26,6 @@ class SentimentModel(nn.Module):
 
         token_embd = self.token_embedding_table(idx) # (B,T,C)
         pos_embd = self.position_embedding_table(torch.arange(T, device=config.device))  # (T,C)
-
         x = token_embd + pos_embd # (B, T, C)
         for block in self.blocks:
             x = block(x, attention_mask)  # (B,T,C)

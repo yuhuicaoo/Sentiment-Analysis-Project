@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.git
+
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+
+*.log
+backend/data_visualisation.html
+backend/data_visualisation.ipynb
+frontend/node_modules/
