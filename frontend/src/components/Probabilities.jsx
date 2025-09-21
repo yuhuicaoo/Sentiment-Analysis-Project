@@ -16,8 +16,8 @@ function Prediction({ prediction, isLoading }) {
     <div className="container">
       <div className="row">
         <div className="content-wrapper">
-          <div className="prediction">
-            <h2 className="purple">
+          <div className="prediction-wrapper">
+            <h2 className="prediction-header purple">
                 Prediction : {""}
               {isLoading ? (
                 <FontAwesomeIcon
@@ -50,8 +50,7 @@ function Prediction({ prediction, isLoading }) {
               <div className="probabilities__table">
                 {probabilities.map((prob, index) => (
                   <div className="value__container" key={index}>
-                    <div className="sentiment">{sentimentMap[index]}</div>
-                    <div className="prob">{prob} %</div>
+                    <div className="prob">{sentimentMap[index]}: {prob} %</div>
                   </div>
                 ))}
               </div>
