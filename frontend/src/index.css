@@ -3,10 +3,14 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
-  overflow-y: hidden;
+}
+
+.landing{
+  max-width: 1200px;
 }
 
 .container {
+  max-width: 1200px;
   margin: 12px 0 12px 0;
 }
 
@@ -61,7 +65,7 @@ h3 {
 }
 
 .button-wrapper {
-  margin-top: 8px;
+  margin: 16px 0 16px 0;
   width: 50%;
   display: flex;
   justify-content: space-evenly;
@@ -86,7 +90,7 @@ h3 {
 }
 
 .prediction-wrapper{
-	margin: 4px 0 4px 0;
+	margin: 12px 0 12px 0;
 }
 
 .fa-spinner {
@@ -101,7 +105,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4px 0 4px 0;
+  margin: 12px 0 12px 0;
 }
 
 .probabilities__table {
@@ -113,7 +117,7 @@ h3 {
   border: 2px solid black;
   border-radius: 8px;
   width: 75%;
-  margin: 0 auto; 
+  margin: 12px auto; 
 }
 
 .value__container {
@@ -131,7 +135,6 @@ h3 {
 
 .prob {
   color: white;
-  /* padding-top: 4px; */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -143,11 +146,11 @@ h3 {
 }
 
 .skeleton__display {
-  width: 400px;
-  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .display__spinner {
@@ -161,7 +164,9 @@ h3 {
 .skeleton__table {
   height: 50px;
   width: 75%;
-  margin: 0 auto;
+  margin: 12px auto;
+  border-radius: 8px;
+  border: 2px solid #af94ee;
 }
 
 .skeleton__table__spinner {
@@ -188,18 +193,18 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
-  height: 250px;
+  width: 400px;
+  height: 400px;
 }
 
 .predicted-sentiment-img {
-	width: 250px;
-	height: 250px;
+	width: 400px;
+	height: 400px;
 }
 
 .text-input-wrapper {
   width: 50%;
-  margin: 16px 0 8px 0;
+  margin: 24px 0 24px 0;
   text-align: center;
 }
 
@@ -210,6 +215,10 @@ h3 {
   color: #6b46c1;
   border-radius: 16px;
   border: 4px solid #6b46c1;
+  min-height: 50px;
+  max-height: 200px;
+  overflow-y: auto;     
+  resize: vertical;     /* allow user to resize manually */
 }
 
 .text-input:focus {
@@ -256,7 +265,10 @@ h3 {
   }
 
   .skeleton__table {
-    height: 102px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .skeleton__table__spinner {
@@ -283,12 +295,21 @@ h3 {
   .github-icon {
     display: none;
   }
+
+  .probabilities{
+    width: 100%;
+  }
 }
 
 /* SMALL PHONES */
 @media (max-width: 480px) {
   .header-title {
     font-size: 24px;
+  }
+
+  .header-wrapper{
+    gap:  0px;
+    margin: 8px auto;
   }
 
   .header-description {

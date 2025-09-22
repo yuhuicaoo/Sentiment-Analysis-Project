@@ -66,10 +66,11 @@ function SentimentDisplay({
               )}
             </figure>
             <div className="text-input-wrapper">
-              <textarea
+              <input
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
+                onKeyDown={(event) => event.key === "Enter" && predict()}
                 placeholder="Enter text here."
                 className="text-input"
               />
