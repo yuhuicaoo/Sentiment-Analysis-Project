@@ -90,7 +90,11 @@ h3 {
 }
 
 .prediction-wrapper{
+  width: 100%;
 	margin: 12px 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fa-spinner {
@@ -98,14 +102,16 @@ h3 {
 }
 
 .probabilities {
-  width: 85%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .probabilities__header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 12px 0 12px 0;
+  width: 50%;
 }
 
 .probabilities__table {
@@ -116,7 +122,7 @@ h3 {
   text-align: center;
   border: 2px solid black;
   border-radius: 8px;
-  width: 75%;
+  width: 50%;
   margin: 12px auto; 
 }
 
@@ -163,7 +169,7 @@ h3 {
 
 .skeleton__table {
   height: 50px;
-  width: 75%;
+  width: 50%;
   margin: 12px auto;
   border-radius: 8px;
   border: 2px solid #af94ee;
@@ -240,6 +246,44 @@ h3 {
   }
 }
 
+@media (max-width: 1500px){
+  h1{
+    font-size: 30px;
+  }
+  h3{
+    font-size: 20px;
+  }
+
+  .img-wrapper{
+    width: 300px;
+    height: 300px;
+  }
+
+  .predicted-sentiment-img{
+    width: 300px;
+    height: 300px;
+  }
+
+  .text-input-wrapper{
+    margin: 16px 0;
+  }
+
+  .button-wrapper{
+    margin: 0 0 12px 0;
+  }
+
+  .prediction-wrapper{
+    margin: 0 0 8px 0;
+  }
+
+  .probabilities__header{
+    margin: 0 0 4px 0;
+  }
+  .probabilities__table{
+    margin: 4px auto;
+  }
+}
+
 /* SMALL PHONES , TABLETS , and LARGE SMARTPHONES */
 
 @media (max-width: 768px) {
@@ -247,24 +291,30 @@ h3 {
     margin: 20px;
   }
 
-  .value__container {
-    width: calc(100% / 3);
+  .header-wrapper{
+    gap: 0;
   }
 
-  .skeleton__display {
-    height: 100px;
+  .img-wrapper{
+    width: 250px;
+    height: 250px;
+  }
+
+  .predicted-sentiment-img{
+    width: 250px;
+    height: 250px;
+  }
+
+  .value__container {
+    width: calc(100% / 3);
   }
 
   .display__spinner {
     font-size: 10rem;
   }
 
-  .img-wrapper {
-    width: 400px;
-    height: 400px;
-  }
-
   .skeleton__table {
+    width: 100%;
     height: 54px;
     display: flex;
     align-items: center;
@@ -284,6 +334,10 @@ h3 {
     width: 75%;
   }
 
+  .prediction-wrapper{
+    width: 75%;
+  }
+
   .header-description {
     font-size: 20px;
   }
@@ -297,6 +351,11 @@ h3 {
   }
 
   .probabilities{
+    width: 75%;
+  }
+
+  .probabilities__table{
+    margin: 12px auto;
     width: 100%;
   }
 }

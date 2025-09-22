@@ -34,7 +34,7 @@ function Prediction({ prediction, isLoading }) {
           <div className="probabilities">
             <h3 className="probabilities__header purple">Probabilities</h3>
             {isLoading ? (
-              <div>
+              <>
                 <div className="skeleton skeleton__table">
                   <div className="skeleton__table__spinner">
                     <FontAwesomeIcon
@@ -45,7 +45,7 @@ function Prediction({ prediction, isLoading }) {
                     />
                   </div>
                 </div>
-              </div>
+              </>
             ) : (
               <div className="probabilities__table">
                 {probabilities.map((prob, index) => (
